@@ -21,6 +21,38 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .comment {
+      position: absolute;
+      font-size: 20px;
+      animation: fadeInOut 10s infinite;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      white-space: nowrap;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      pointer-events: none;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      25% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      75% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
     }
 
     #credits {
@@ -94,26 +126,26 @@
     a {
       text-decoration: none;
     }
-    *{
--webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
-} 
-input, 
-textarea, 
-button, 
-select, 
-a{ 
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-} 
 
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+    } 
 
-a:focus, 
-a:visited, 
-a:active{
-  outline: none; 
-} 
+    input, textarea, button, select, a { 
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    } 
+
+    a:focus, a:visited, a:active {
+      outline: none; 
+    } 
   </style>
 </head>
 <body>
+  <a href="/comentario">
+  <button class="abcbt" style="position: fixed; bottom: 20px; right: 20px; background: transparent; border: none; cursor: pointer;">
+    <img class="abcimg" src="comen.png" alt="Comment Button" style="width: 50px; height: 50px; object-fit: cover;">
+  </button>
+</a>
   <div id="credits">
     <div class="credit-item">
       <img class="fotodc" data-user-id="1310322896148627550" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="pic">
@@ -146,6 +178,14 @@ a:active{
 
     anime({
       targets: '.bbb',
+      opacity: 1,
+      duration: 2000,
+      easing: 'easeInOutQuad',
+      delay: 2000 
+    });
+    
+    anime({
+      targets: '.abcimg',
       opacity: 1,
       duration: 2000,
       easing: 'easeInOutQuad',
@@ -197,8 +237,43 @@ a:active{
         });
     }
 
+    function getcomen() {
+      fetch('http://premium.primaryhost.shop:2043/comments')
+        .then(response => response.json())
+        .then(comments => {
+          displaymsg(comments);
+        })
+        .catch(error => {
+          console.error('erro3comen', error);
+        });
+    }
+
+    function displaymsg(comments) {
+      const body = document.querySelector('body');
+      
+      setInterval(() => {
+        const randomComment = comments[Math.floor(Math.random() * comments.length)];
+        
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.innerText = `${randomComment.name}: ${randomComment.comment}`;
+        
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        commentElement.style.left = `${x}%`;
+        commentElement.style.top = `${y}%`;
+
+        body.appendChild(commentElement);
+
+        setTimeout(() => {
+          commentElement.remove();
+        }, 10000); 
+      }, 3000); 
+    }
+
     window.onload = function () {
-      updateProfileData("1310322896148627550"); 
+      getcomen(); 
+      updateProfileData("1310322896148627550");
     };
   </script>
 </body>
