@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Comments</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .cmdnegro {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      background: #111;
+      border: 1px solid #444;
+      border-radius: 8px;
+      box-sizing: border-box;
+      box-shadow: 0 0 10px 2px #333;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #ccc;
+    }
+
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background-color: #000;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #555;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    .response {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .response.success {
+      color: #ffffff;
+    }
+
+    .response.error {
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <div class="cmdnegro">
+    <h1>Comentário</h1>
+    <form id="commentForm">
+      <label for="name">Nick:</label>
+      <input type="text" id="name" name="Nick" placeholder="teu nick aqui" required>
+      <label for="comment">Menssagem:</label>
+      <textarea id="comment" name="Menssagem" rows="4" placeholder="tua menssagem aqui" required></textarea>
+      <button type="submit">Enviar</button>
+      <div class="response" id="response"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('commentForm');
+    const responseDiv = document.getElementById('response');
+
+    form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const comment = document.getElementById('comment').value;
+
+  if (comment.length !== 7) {
+    responseDiv.className = 'response error';
+    responseDiv.textContent = 'A menssagem deve ter até 7 caracteres!';
+    return; 
+  }
+
+  try {
+    const response = await fetch('http://premium.primaryhost.shop:2043/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, comment }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      responseDiv.className = 'response success';
+      responseDiv.textContent = 'Foi, tua mensagem vai aparecer na index.';
+      form.reset();
+    } else {
+      responseDiv.className = 'response error';
+      responseDiv.textContent = data.error || 'Erro.';
+    }
+  } catch (error) {
+    responseDiv.className = 'response error';
+    responseDiv.textContent = 'Erro de conexão.';
+  }
+});
+  </script>
+</body>
+</html>
