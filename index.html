@@ -86,11 +86,27 @@
     .botaozap:hover {
       background-color: transparent;
     }
-
-    /* Remover o sublinhado do link */
+    
     a {
       text-decoration: none;
     }
+    *{
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+} 
+input, 
+textarea, 
+button, 
+select, 
+a{ 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+} 
+
+
+a:focus, 
+a:visited, 
+a:active{
+  outline: none; 
+} 
   </style>
 </head>
 <body>
