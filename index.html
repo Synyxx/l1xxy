@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synyx</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: black;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #credits {
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .credit-item {
+      margin: 20px;
+    }
+
+    .fotodc {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid white;
+      object-fit: cover;
+    }
+
+    .status-img {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+
+    .nick {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+
+    .ativ {
+      font-size: 1em;
+      margin-top: 5px;
+      color: gray;
+    }
+
+    .bbb {
+      opacity: 0;
+      margin-top: 30px;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .botaozap {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .botaozap img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .sytxt {
+      margin-top: 5px;
+      font-size: 0.9em;
+      color: white;
+    }
+
+    .botaozap:hover {
+      background-color: transparent;
+    }
+
+    /* Remover o sublinhado do link */
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="credits">
+    <div class="credit-item">
+      <img class="fotodc" data-user-id="1286495938780594195" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="pic">
+      <h3 class="nick" data-user-id="1286495938780594195"></h3>
+      <p class="ativ" data-user-id="1286495938780594195" style="display: none;"></p>
+    </div>
+
+    <div class="bbb">
+      <a href="https://wa.me/5584987794346?text=/menu" target="_blank">
+        <button class="botaozap">
+          <img src="zap.png" alt="pic">
+        </button>
+        <div class="sytxt">Bot de Consultas</div>
+      </a>
+    </div>
+  </div>
+
+  <audio id="music" autoplay>
+    <source src="credits.mp3" type="audio/mp3">
+  </audio>
+
+  <script src="anime.min.js"></script>
+  <script>
+    anime({
+      targets: '#credits',
+      opacity: 1,
+      duration: 2000,
+      easing: 'easeInOutQuad'
+    });
+
+    anime({
+      targets: '.bbb',
+      opacity: 1,
+      duration: 2000,
+      easing: 'easeInOutQuad',
+      delay: 2000 
+    });
+
+    function updateProfileData(userId) {
+      fetch(`https://api.lanyard.rest/v1/users/${userId}`)
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+          return res.json();
+        })
+        .then((data) => {
+          const userData = data?.data;
+          if (!userData) throw new Error("erro2");
+
+          const discordUser = userData?.discord_user;
+          const profileImg = document.querySelector(`.fotodc[data-user-id="${userId}"]`);
+          const nameElement = document.querySelector(`.nick[data-user-id="${userId}"]`);
+          const activityElement = document.querySelector(`.ativ[data-user-id="${userId}"]`);
+
+          profileImg.src = discordUser?.avatar
+            ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.${discordUser.avatar.startsWith("a_") ? "gif" : "png"}?size=512`
+            : "https://cdn.discordapp.com/embed/avatars/1.png";
+
+          const globalName = discordUser.global_name ? `(${discordUser.global_name})` : "";
+          nameElement.innerHTML = `${discordUser?.username} ${globalName}`;
+
+          const secondActivity = userData.activities?.[1];
+          if (secondActivity) {
+            const activityName = secondActivity?.name || "";
+            const activityDetails = secondActivity?.details || "";
+            activityElement.innerHTML = `Activity: ${activityName} - ${activityDetails}`;
+            activityElement.style.display = "block"; 
+          } else {
+            activityElement.style.display = "none"; 
+          }
+
+        })
+        .catch((err) => {
+          console.error("erro:", err);
+
+          const nameElement = document.querySelector(`.nick[data-user-id="${userId}"]`);
+          const activityElement = document.querySelector(`.ativ[data-user-id="${userId}"]`);
+
+          nameElement.textContent = "erro";
+          activityElement.textContent = "";
+          activityElement.style.display = "none"; 
+        });
+    }
+
+    window.onload = function () {
+      updateProfileData("1286495938780594195"); 
+    };
+  </script>
+</body>
+</html>
