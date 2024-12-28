@@ -90,14 +90,31 @@
     a {
       text-decoration: none;
     }
+    *{
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+} 
+input, 
+textarea, 
+button, 
+select, 
+a{ 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+} 
+
+
+a:focus, 
+a:visited, 
+a:active{
+  outline: none; 
+} 
   </style>
 </head>
 <body>
   <div id="credits">
     <div class="credit-item">
-      <img class="fotodc" data-user-id="1286495938780594195" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Profile Image">
-      <h3 class="nick" data-user-id="1286495938780594195">Loading...</h3>
-      <p class="ativ" data-user-id="1286495938780594195" style="display: none;">Activity: Loading...</p>
+      <img class="fotodc" data-user-id="1310322896148627550" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Profile Image">
+      <h3 class="nick" data-user-id="1310322896148627550">Loading...</h3>
+      <p class="ativ" data-user-id="1310322896148627550" style="display: none;">Activity: Loading...</p>
     </div>
 
     <div class="bbb">
@@ -177,7 +194,7 @@
     }
 
     window.onload = function () {
-      updateProfileData("1286495938780594195"); 
+      updateProfileData("1310322896148627550"); 
     };
   </script>
 </body>
