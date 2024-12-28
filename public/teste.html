@@ -238,15 +238,15 @@
     }
 
     function getcomen() {
-      fetch('https://testepc.onrender.com/comentarios')
-        .then(response => response.json())
-        .then(comments => {
-          displaymsg(comments);
-        })
-        .catch(error => {
-          console.error('erro3comen', error);
-        });
-    }
+  fetch('/.netlify/functions/get-comments')
+    .then(response => response.json())
+    .then(comments => {
+      displaymsg(comments);
+    })
+    .catch(error => {
+      console.error('erro3comen', error);
+    });
+}
 
     function displaymsg(comments) {
       const body = document.querySelector('body');
