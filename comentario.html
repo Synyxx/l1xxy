@@ -94,7 +94,7 @@
 </head>
 <body>
   <div class="cmdnegro">
-    <h1>Comentário</h1>
+    <h1>upe uma menssagem na index</h1>
     <form id="commentForm">
       <label for="name">Nick:</label>
       <input type="text" id="name" name="Nick" placeholder="teu nick aqui" required>
@@ -115,9 +115,15 @@
   const name = document.getElementById('name').value;
   const comment = document.getElementById('comment').value;
 
+  if (name.length !== 7) {
+    responseDiv.className = 'response error';
+    responseDiv.textContent = 'O Nick deve ter até 7 caracteres.';
+    return; 
+  }
+
   if (comment.length !== 7) {
     responseDiv.className = 'response error';
-    responseDiv.textContent = 'A menssagem deve ter até 7 caracteres!';
+    responseDiv.textContent = 'A menssagem deve ter até 7 caracteres.';
     return; 
   }
 
