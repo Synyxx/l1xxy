@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dark Comments</title>
+  <title>Synyx</title>
   <style>
     body {
       background-color: #000;
       color: #fff;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Courier New', monospace;
       margin: 0;
       display: flex;
       justify-content: center;
@@ -52,6 +52,7 @@
       background-color: #000;
       color: #fff;
       font-size: 14px;
+      font-family: 'Courier New', monospace;
     }
 
     input::placeholder, textarea::placeholder {
@@ -72,6 +73,7 @@
       font-size: 16px;
       cursor: pointer;
       transition: background-color 0.3s;
+      font-family: 'Courier New', monospace;
     }
 
     button:hover {
@@ -94,7 +96,7 @@
 </head>
 <body>
   <div class="cmdnegro">
-    <h1>upe uma menssagem na index</h1>
+    <h1>upe uma menssagem para a index</h1>
     <form id="commentForm">
       <label for="name">Nick:</label>
       <input type="text" id="name" name="Nick" placeholder="teu nick aqui" required>
@@ -110,45 +112,39 @@
     const responseDiv = document.getElementById('response');
 
     form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+      e.preventDefault();
 
-  const name = document.getElementById('name').value;
-  const comment = document.getElementById('comment').value;
+      const name = document.getElementById('name').value;
+      const comment = document.getElementById('comment').value;
 
-  if (name.length !== 7) {
-    responseDiv.className = 'response error';
-    responseDiv.textContent = 'O Nick deve ter até 7 caracteres.';
-    return; 
-  }
+      if (name.length > 7 || comment.length > 7) {
+        responseDiv.className = 'response error';
+        responseDiv.textContent = 'O nick e a menssagem devem ter no máximo 7 caracteres.';
+        return;
+      }
 
-  if (comment.length !== 7) {
-    responseDiv.className = 'response error';
-    responseDiv.textContent = 'A menssagem deve ter até 7 caracteres.';
-    return; 
-  }
+      try {
+        const response = await fetch('http://premium.primaryhost.shop:2043/comments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, comment }),
+        });
 
-  try {
-    const response = await fetch('http://premium.primaryhost.shop:2043/comments', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, comment }),
+        const data = await response.json();
+
+        if (response.ok) {
+          responseDiv.className = 'response success';
+          responseDiv.textContent = 'Foi, tua mensagem vai aparecer na index.';
+          form.reset();
+        } else {
+          responseDiv.className = 'response error';
+          responseDiv.textContent = data.error || 'Erro.';
+        }
+      } catch (error) {
+        responseDiv.className = 'response error';
+        responseDiv.textContent = 'Erro de conexão.';
+      }
     });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      responseDiv.className = 'response success';
-      responseDiv.textContent = 'Foi, tua mensagem vai aparecer na index.';
-      form.reset();
-    } else {
-      responseDiv.className = 'response error';
-      responseDiv.textContent = data.error || 'Erro.';
-    }
-  } catch (error) {
-    responseDiv.className = 'response error';
-    responseDiv.textContent = 'Erro de conexão.';
-  }
-});
   </script>
 </body>
 </html>
