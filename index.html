@@ -3,11 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:title" content="Synyx">
-  <meta property="og:description" content="Reborn.">
-  <meta property="og:image" content="https://pomf2.lain.la/f/gweo3kf5.jpg">
-  <link rel="icon" href="https://pomf2.lain.la/f/dpyyf8qt.png" type="image/png">
-  <title>Synyx</title>
+  <title>Credits</title>
   <style>
     body {
       font-family: 'Courier New', monospace;
@@ -21,38 +17,6 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .comment {
-      position: absolute;
-      font-size: 20px;
-      animation: fadeInOut 10s infinite;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-      white-space: nowrap;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-      pointer-events: none;
-    }
-
-    @keyframes fadeInOut {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      25% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      75% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
     }
 
     #credits {
@@ -95,7 +59,7 @@
       transition: opacity 2s ease-in-out;
     }
 
-    .botaozap {
+    .rounded-button {
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -106,7 +70,7 @@
       display: inline-block;
     }
 
-    .botaozap img {
+    .rounded-button img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -119,52 +83,36 @@
       color: white;
     }
 
-    .botaozap:hover {
+    .rounded-button:hover {
       background-color: transparent;
     }
-    
+
+    /* Remover o sublinhado do link */
     a {
       text-decoration: none;
     }
-
-    * {
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
-    } 
-
-    input, textarea, button, select, a { 
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    } 
-
-    a:focus, a:visited, a:active {
-      outline: none; 
-    } 
   </style>
 </head>
 <body>
-  <a href="/comentario">
-  <button class="abcbt" style="position: fixed; bottom: 20px; right: 20px; background: transparent; border: none; cursor: pointer;">
-    <img class="abcimg" src="comen.png" alt="Comment Button" style="width: 50px; height: 50px; object-fit: cover;">
-  </button>
-</a>
   <div id="credits">
     <div class="credit-item">
-      <img class="fotodc" data-user-id="1310322896148627550" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="pic">
-      <h3 class="nick" data-user-id="1310322896148627550"></h3>
-      <p class="ativ" data-user-id="1310322896148627550" style="display: none;"></p>
+      <img class="fotodc" data-user-id="1286495938780594195" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Profile Image">
+      <h3 class="nick" data-user-id="1286495938780594195">Loading...</h3>
+      <p class="ativ" data-user-id="1286495938780594195" style="display: none;">Activity: Loading...</p>
     </div>
 
     <div class="bbb">
-      <a href="https://wa.me/5584987794346?text=/menu" target="_blank">
-        <button class="botaozap">
-          <img src="zap.png" alt="pic">
+      <a href="https://wa.me/5584987794346" target="_blank">
+        <button class="rounded-button">
+          <img src="zap.png" alt="Button Icon">
         </button>
-        <div class="sytxt">Bot de Consultas</div>
+        <div class="sytxt">Synyx - Consultas</div>
       </a>
     </div>
   </div>
 
   <audio id="music" autoplay>
-    <source src="credits.mp3" type="audio/mp3">
+    <source src="/credits/credits.mp3" type="audio/mp3">
   </audio>
 
   <script src="anime.min.js"></script>
@@ -183,14 +131,6 @@
       easing: 'easeInOutQuad',
       delay: 2000 
     });
-    
-    anime({
-      targets: '.abcimg',
-      opacity: 1,
-      duration: 2000,
-      easing: 'easeInOutQuad',
-      delay: 2000 
-    });
 
     function updateProfileData(userId) {
       fetch(`https://api.lanyard.rest/v1/users/${userId}`)
@@ -200,7 +140,7 @@
         })
         .then((data) => {
           const userData = data?.data;
-          if (!userData) throw new Error("erro2");
+          if (!userData) throw new Error("No user data found!");
 
           const discordUser = userData?.discord_user;
           const profileImg = document.querySelector(`.fotodc[data-user-id="${userId}"]`);
@@ -216,8 +156,8 @@
 
           const secondActivity = userData.activities?.[1];
           if (secondActivity) {
-            const activityName = secondActivity?.name || "";
-            const activityDetails = secondActivity?.details || "";
+            const activityName = secondActivity?.name || "Unknown Activity";
+            const activityDetails = secondActivity?.details || "No details available";
             activityElement.innerHTML = `Activity: ${activityName} - ${activityDetails}`;
             activityElement.style.display = "block"; 
           } else {
@@ -226,54 +166,19 @@
 
         })
         .catch((err) => {
-          console.error("erro:", err);
+          console.error("Error fetching user data:", err);
 
           const nameElement = document.querySelector(`.nick[data-user-id="${userId}"]`);
           const activityElement = document.querySelector(`.ativ[data-user-id="${userId}"]`);
 
-          nameElement.textContent = "erro";
-          activityElement.textContent = "";
+          nameElement.textContent = "Error loading user";
+          activityElement.textContent = "Activity: Unknown";
           activityElement.style.display = "none"; 
         });
     }
 
-    function getcomen() {
-      fetch('http://premium.primaryhost.shop:2043/comments')
-        .then(response => response.json())
-        .then(comments => {
-          displaymsg(comments);
-        })
-        .catch(error => {
-          console.error('erro3comen', error);
-        });
-    }
-
-    function displaymsg(comments) {
-      const body = document.querySelector('body');
-      
-      setInterval(() => {
-        const randomComment = comments[Math.floor(Math.random() * comments.length)];
-        
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-        commentElement.innerText = `${randomComment.name}: ${randomComment.comment}`;
-        
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        commentElement.style.left = `${x}%`;
-        commentElement.style.top = `${y}%`;
-
-        body.appendChild(commentElement);
-
-        setTimeout(() => {
-          commentElement.remove();
-        }, 10000); 
-      }, 3000); 
-    }
-
     window.onload = function () {
-      getcomen(); 
-      updateProfileData("1310322896148627550");
+      updateProfileData("1286495938780594195"); 
     };
   </script>
 </body>
