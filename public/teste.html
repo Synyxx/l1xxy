@@ -3,111 +3,278 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teste de Save Comment</title>
+  <meta property="og:title" content="Synyx">
+  <meta property="og:description" content="Reborn.">
+  <meta property="og:image" content="https://pomf2.lain.la/f/gweo3kf5.jpg">
+  <link rel="icon" href="https://pomf2.lain.la/f/dpyyf8qt.png" type="image/png">
+  <title>Synyx</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #222;
-      color: #fff;
+      font-family: 'Courier New', monospace;
+      background-color: black;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
     }
 
-    form {
-      background: #333;
-      padding: 20px;
-      border-radius: 8px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .comment {
+      position: absolute;
+      font-size: 20px;
+      animation: fadeInOut 10s infinite;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      white-space: nowrap;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      pointer-events: none;
     }
 
-    input, textarea, button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      25% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      75% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    #credits {
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .credit-item {
+      margin: 20px;
+    }
+
+    .fotodc {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid white;
+      object-fit: cover;
+    }
+
+    .status-img {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+
+    .nick {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+
+    .ativ {
+      font-size: 1em;
+      margin-top: 5px;
+      color: gray;
+    }
+
+    .bbb {
+      opacity: 0;
+      margin-top: 30px;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .botaozap {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
       border: none;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-
-    input, textarea {
-      background: #444;
-      color: #fff;
-    }
-
-    button {
-      background: #555;
-      color: #fff;
+      background-color: transparent;
       cursor: pointer;
+      padding: 0;
+      display: inline-block;
     }
 
-    button:hover {
-      background: #666;
+    .botaozap img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
     }
 
-    .response {
-      margin-top: 15px;
-      font-size: 14px;
+    .sytxt {
+      margin-top: 5px;
+      font-size: 0.9em;
+      color: white;
     }
 
-    .response.success {
-      color: #4caf50;
+    .botaozap:hover {
+      background-color: transparent;
+    }
+    
+    a {
+      text-decoration: none;
     }
 
-    .response.error {
-      color: #f44336;
-    }
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+    } 
+
+    input, textarea, button, select, a { 
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    } 
+
+    a:focus, a:visited, a:active {
+      outline: none; 
+    } 
   </style>
 </head>
 <body>
-  <h1>Teste Save Comment</h1>
-  <form id="commentForm">
-    <input type="text" id="name" placeholder="Seu nome (máx. 7 letras)" maxlength="7" required>
-    <textarea id="comment" placeholder="Seu comentário (máx. 7 letras)" maxlength="7" required></textarea>
-    <button type="submit">Salvar Comentário</button>
-    <div class="response" id="response"></div>
-  </form>
+  <a href="/comentario.html">
+  <button class="abcbt" style="position: fixed; bottom: 20px; right: 20px; background: transparent; border: none; cursor: pointer;">
+    <img class="abcimg" src="comen.png" alt="Comment Button" style="width: 50px; height: 50px; object-fit: cover;">
+  </button>
+</a>
+  <div id="credits">
+    <div class="credit-item">
+      <img class="fotodc" data-user-id="1310322896148627550" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="pic">
+      <h3 class="nick" data-user-id="1310322896148627550"></h3>
+      <p class="ativ" data-user-id="1310322896148627550" style="display: none;"></p>
+    </div>
 
+    <div class="bbb">
+      <a href="https://wa.me/5584987794346?text=/menu" target="_blank">
+        <button class="botaozap">
+          <img src="zap.png" alt="pic">
+        </button>
+        <div class="sytxt">Bot de Consultas</div>
+      </a>
+    </div>
+  </div>
+
+  <audio id="music" autoplay>
+    <source src="credits.mp3" type="audio/mp3">
+  </audio>
+
+  <script src="anime.min.js"></script>
   <script>
-    document.getElementById('commentForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value.trim();
-      const comment = document.getElementById('comment').value.trim();
-      const responseDiv = document.getElementById('response');
-
-      if (name.length > 7 || comment.length > 7) {
-        responseDiv.className = 'response error';
-        responseDiv.textContent = 'Erro: Nome e comentário devem ter no máximo 7 letras.';
-        return;
-      }
-
-      try {
-        const response = await fetch('/.netlify/functions/saveComment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, comment })
-        });
-
-        if (response.ok) {
-          responseDiv.className = 'response success';
-          responseDiv.textContent = 'Comentário salvo com sucesso!';
-          document.getElementById('commentForm').reset();
-        } else {
-          const errorData = await response.json();
-          responseDiv.className = 'response error';
-          responseDiv.textContent = `Erro: ${errorData.error}`;
-        }
-      } catch (error) {
-        responseDiv.className = 'response error';
-        responseDiv.textContent = 'Erro de conexão ao salvar o comentário.';
-      }
+    anime({
+      targets: '#credits',
+      opacity: 1,
+      duration: 2000,
+      easing: 'easeInOutQuad'
     });
+
+    anime({
+      targets: '.bbb',
+      opacity: 1,
+      duration: 2000,
+      easing: 'easeInOutQuad',
+      delay: 2000 
+    });
+    
+    anime({
+      targets: '.abcimg',
+      opacity: 1,
+      duration: 2000,
+      easing: 'easeInOutQuad',
+      delay: 2000 
+    });
+
+    function updateProfileData(userId) {
+      fetch(`https://api.lanyard.rest/v1/users/${userId}`)
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+          return res.json();
+        })
+        .then((data) => {
+          const userData = data?.data;
+          if (!userData) throw new Error("erro2");
+
+          const discordUser = userData?.discord_user;
+          const profileImg = document.querySelector(`.fotodc[data-user-id="${userId}"]`);
+          const nameElement = document.querySelector(`.nick[data-user-id="${userId}"]`);
+          const activityElement = document.querySelector(`.ativ[data-user-id="${userId}"]`);
+
+          profileImg.src = discordUser?.avatar
+            ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.${discordUser.avatar.startsWith("a_") ? "gif" : "png"}?size=512`
+            : "https://cdn.discordapp.com/embed/avatars/1.png";
+
+          const globalName = discordUser.global_name ? `(${discordUser.global_name})` : "";
+          nameElement.innerHTML = `${discordUser?.username} ${globalName}`;
+
+          const secondActivity = userData.activities?.[1];
+          if (secondActivity) {
+            const activityName = secondActivity?.name || "";
+            const activityDetails = secondActivity?.details || "";
+            activityElement.innerHTML = `Activity: ${activityName} - ${activityDetails}`;
+            activityElement.style.display = "block"; 
+          } else {
+            activityElement.style.display = "none"; 
+          }
+
+        })
+        .catch((err) => {
+          console.error("erro:", err);
+
+          const nameElement = document.querySelector(`.nick[data-user-id="${userId}"]`);
+          const activityElement = document.querySelector(`.ativ[data-user-id="${userId}"]`);
+
+          nameElement.textContent = "erro";
+          activityElement.textContent = "";
+          activityElement.style.display = "none"; 
+        });
+    }
+
+    function getcomen() {
+      fetch('https://testepc-1.onrender.com/comentarios')
+        .then(response => response.json())
+        .then(comments => {
+          displaymsg(comments);
+        })
+        .catch(error => {
+          console.error('erro3comen', error);
+        });
+    }
+
+    function displaymsg(comments) {
+      const body = document.querySelector('body');
+      
+      setInterval(() => {
+        const randomComment = comments[Math.floor(Math.random() * comments.length)];
+        
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.innerText = `${randomComment.name}: ${randomComment.comentario}`;
+        
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        commentElement.style.left = `${x}%`;
+        commentElement.style.top = `${y}%`;
+
+        body.appendChild(commentElement);
+
+        setTimeout(() => {
+          commentElement.remove();
+        }, 10000); 
+      }, 3000); 
+    }
+
+    window.onload = function () {
+      getcomen(); 
+      updateProfileData("1310322896148627550");
+    };
   </script>
 </body>
 </html>
