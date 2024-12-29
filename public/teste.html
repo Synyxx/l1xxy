@@ -25,37 +25,35 @@
       position: relative;
     }
 
-.comment {
-  position: absolute;
-  font-size: 16px;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
-  white-space: nowrap;
-  text-align: center;
-  animation: fadeInOut 10s infinite;
-}
+    .comment {
+      position: absolute;
+      font-size: 20px;
+      animation: fadeInOut 10s infinite;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      white-space: nowrap;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      pointer-events: none;
+    }
 
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  25% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  75% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      25% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      75% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
 
     #credits {
       opacity: 0;
