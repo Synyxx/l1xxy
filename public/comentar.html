@@ -122,9 +122,9 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  if (comment.length > 200) {
+  if (comment.length > 10) {
     responseDiv.className = 'response error';
-    responseDiv.textContent = 'A mensagem deve ter no máximo 200 caracteres.';
+    responseDiv.textContent = 'A mensagem deve ter no máximo 10 caracteres.';
     return;
   }
 
