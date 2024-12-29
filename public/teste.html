@@ -257,16 +257,13 @@
     const commentElement = document.createElement('div');
     commentElement.classList.add('comment');
 
-    // Formata a data para DD/MM/AAAA
     const commentDate = new Date(randomComment.data);
     const formattedDate = `${commentDate.getDate().toString().padStart(2, '0')}/${(commentDate.getMonth() + 1).toString().padStart(2, '0')}/${commentDate.getFullYear()}`;
 
-    // Define o conteúdo do comentário
     commentElement.innerText = `${randomComment.comentario}\n${formattedDate}`;
 
-    // Posiciona o comentário aleatoriamente dentro da tela
-    const x = Math.random() * (window.innerWidth - 150); // Evita ultrapassar largura
-    const y = Math.random() * (window.innerHeight - 50); // Evita ultrapassar altura
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 50);
     commentElement.style.left = `${x}px`;
     commentElement.style.top = `${y}px`;
 
@@ -274,8 +271,8 @@
 
     setTimeout(() => {
       commentElement.remove();
-    }, 5000); // Remove o comentário após 10 segundos
-  }, 8000); // Mostra um novo comentário a cada 3 segundos
+    }, 5000); 
+  }, 8000); 
         }
     window.onload = function () {
       getcomen(); 
