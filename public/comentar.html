@@ -103,42 +103,54 @@
   </div>
 
   <script>
-    const form = document.getElementById('commentForm');
-    const responseDiv = document.getElementById('response');
+const form = document.getElementById('commentForm');
+const responseDiv = document.getElementById('response');
+const delayMinutes = 20; 
+const delayMilliseconds = delayMinutes * 60 * 1000;
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-      const comment = document.getElementById('comment').value;
+  const comment = document.getElementById('comment').value;
+  const lastSendTime = localStorage.getItem('lastSendTime');
+  const currentTime = Date.now();
 
-      if (comment.length > 7) {
-        responseDiv.className = 'response error';
-        responseDiv.textContent = 'a mensagem deve ter no máximo 7 caracteres.';
-        return;
-      }
+  if (lastSendTime && currentTime - lastSendTime < delayMilliseconds) {
+    const remainingTime = Math.ceil((delayMilliseconds - (currentTime - lastSendTime)) / 60000);
+    responseDiv.className = 'response error';
+    responseDiv.textContent = `Aguarde ${remainingTime} minutos antes de enviar outra mensagem.`;
+    return;
+  }
 
-      try {
-        const response = await fetch('https://testepc.onrender.com/comentar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ comentario: comment }),
-        });
+  if (comment.length > 7) {
+    responseDiv.className = 'response error';
+    responseDiv.textContent = 'A mensagem deve ter no máximo 7 caracteres.';
+    return;
+  }
 
-        const data = await response.json();
-
-        if (response.ok) {
-          responseDiv.className = 'response success';
-          responseDiv.textContent = 'pronto, só dar f5 la na index';
-          form.reset();
-        } else {
-          responseDiv.className = 'response error';
-          responseDiv.textContent = data.message || 'erro ao enviar a mensagem.';
-        }
-      } catch (error) {
-        responseDiv.className = 'response error';
-        responseDiv.textContent = 'erro de conexão.';
-      }
+  try {
+    const response = await fetch('https://testepc.onrender.com/comentar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ comentario: comment }),
     });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      responseDiv.className = 'response success';
+      responseDiv.textContent = 'Pronto, só dar F5 lá na index.';
+      localStorage.setItem('lastSendTime', currentTime); 
+      form.reset();
+    } else {
+      responseDiv.className = 'response error';
+      responseDiv.textContent = data.message || 'Erro ao enviar a mensagem.';
+    }
+  } catch (error) {
+    responseDiv.className = 'response error';
+    responseDiv.textContent = 'Erro de conexão.';
+  }
+});
   </script>
 </body>
 </html>
