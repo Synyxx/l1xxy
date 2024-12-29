@@ -93,10 +93,10 @@
 </head>
 <body>
   <div class="cmdnegro">
-    <h1>Envie sua mensagem</h1>
+    <h1>Manda uma menssagem pra index</h1>
     <form id="commentForm">
       <label for="comment">Mensagem:</label>
-      <textarea id="comment" name="Mensagem" rows="4" placeholder="Digite sua mensagem" required></textarea>
+      <textarea id="comment" name="Mensagem" rows="4" placeholder="Digita tua mensagem" required></textarea>
       <button type="submit">Enviar</button>
       <div class="response" id="response"></div>
     </form>
@@ -111,9 +111,9 @@
 
       const comment = document.getElementById('comment').value;
 
-      if (comment.length > 200) {
+      if (comment.length > 7) {
         responseDiv.className = 'response error';
-        responseDiv.textContent = 'A mensagem deve ter no máximo 200 caracteres.';
+        responseDiv.textContent = 'a mensagem deve ter no máximo 7 caracteres.';
         return;
       }
 
@@ -128,15 +128,15 @@
 
         if (response.ok) {
           responseDiv.className = 'response success';
-          responseDiv.textContent = 'Sua mensagem foi enviada com sucesso!';
+          responseDiv.textContent = 'pronto, só dar f5 la na index';
           form.reset();
         } else {
           responseDiv.className = 'response error';
-          responseDiv.textContent = data.message || 'Erro ao enviar a mensagem.';
+          responseDiv.textContent = data.message || 'erro ao enviar a mensagem.';
         }
       } catch (error) {
         responseDiv.className = 'response error';
-        responseDiv.textContent = 'Erro de conexão.';
+        responseDiv.textContent = 'erro de conexão.';
       }
     });
   </script>
