@@ -118,7 +118,7 @@ form.addEventListener('submit', async (e) => {
   if (lastSendTime && currentTime - lastSendTime < delayMilliseconds) {
     const remainingTime = Math.ceil((delayMilliseconds - (currentTime - lastSendTime)) / 60000);
     responseDiv.className = 'response error';
-    responseDiv.textContent = `Aguarde ${remainingTime} minutos antes de enviar outra mensagem.`;
+    responseDiv.textContent = `você deve aguardar ${remainingTime} minutos.`;
     return;
   }
 
