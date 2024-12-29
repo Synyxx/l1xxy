@@ -25,35 +25,37 @@
       position: relative;
     }
 
-    .comment {
-      position: absolute;
-      font-size: 20px;
-      animation: fadeInOut 10s infinite;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-      white-space: nowrap;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-      pointer-events: none;
-    }
+.comment {
+  position: absolute;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  text-align: center;
+  animation: fadeInOut 10s infinite;
+}
 
-    @keyframes fadeInOut {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      25% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      75% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-    }
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
 
     #credits {
       opacity: 0;
@@ -249,28 +251,34 @@
     }
 
     function displaymsg(comments) {
-      const body = document.querySelector('body');
-      
-      setInterval(() => {
-        const randomComment = comments[Math.floor(Math.random() * comments.length)];
-        
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-        commentElement.innerText = `${randomComment.name}: ${randomComment.comentario}`;
-        
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        commentElement.style.left = `${x}%`;
-        commentElement.style.top = `${y}%`;
+  const body = document.querySelector('body');
 
-        body.appendChild(commentElement);
+  setInterval(() => {
+    const randomComment = comments[Math.floor(Math.random() * comments.length)];
 
-        setTimeout(() => {
-          commentElement.remove();
-        }, 10000); 
-      }, 3000); 
-    }
+    const commentElement = document.createElement('div');
+    commentElement.classList.add('comment');
 
+    // Formata a data para DD/MM/AAAA
+    const commentDate = new Date(randomComment.data);
+    const formattedDate = `${commentDate.getDate().toString().padStart(2, '0')}/${(commentDate.getMonth() + 1).toString().padStart(2, '0')}/${commentDate.getFullYear()}`;
+
+    // Define o conteúdo do comentário
+    commentElement.innerText = `${randomComment.comentario}\n${formattedDate}`;
+
+    // Posiciona o comentário aleatoriamente dentro da tela
+    const x = Math.random() * (window.innerWidth - 150); // Evita ultrapassar largura
+    const y = Math.random() * (window.innerHeight - 50); // Evita ultrapassar altura
+    commentElement.style.left = `${x}px`;
+    commentElement.style.top = `${y}px`;
+
+    body.appendChild(commentElement);
+
+    setTimeout(() => {
+      commentElement.remove();
+    }, 5000); // Remove o comentário após 10 segundos
+  }, 8000); // Mostra um novo comentário a cada 3 segundos
+        }
     window.onload = function () {
       getcomen(); 
       updateProfileData("1310322896148627550");
