@@ -129,7 +129,7 @@ form.addEventListener('submit', async (e) => {
   }
 
   try {
-    const response = await fetch('http://premium.primaryhost.shop:2068', {
+    const response = await fetch('http://premium.primaryhost.shop:2068/comentar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ comentario: comment }),
