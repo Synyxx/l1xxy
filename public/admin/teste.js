@@ -9,9 +9,9 @@ async function fetchUserInfo() {
         userInfoElement.innerHTML = `
             IP: ${data.ip}<br>
             Cidade: ${data.city || 'N/A'}<br>
-            Região: ${data.region || 'N/A'}<br>
-            Estado: ${data.country || 'N/A'}<br>
-            Pais: ${data.loc || 'N/A'}<br>
+            Estado: ${data.region || 'N/A'}<br>
+            Pais: ${data.country || 'N/A'}<br>
+            Coordenadas: ${data.loc || 'N/A'}<br>
             Provedor: ${data.org || 'N/A'}<br>
             Cep: ${data.postal || 'N/A'}
         `;
