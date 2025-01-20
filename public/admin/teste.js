@@ -11,7 +11,7 @@ async function fetchUserInfo() {
             Cidade: ${data.city || 'N/A'}<br>
             Região: ${data.region || 'N/A'}<br>
             Estado: ${data.country || 'N/A'}<br>
-            Localização: ${data.loc || 'N/A'}<br>
+            Pais: ${data.loc || 'N/A'}<br>
             Provedor: ${data.org || 'N/A'}<br>
             Cep: ${data.postal || 'N/A'}
         `;
