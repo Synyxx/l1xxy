@@ -8,16 +8,16 @@ async function fetchUserInfo() {
         
         userInfoElement.innerHTML = `
             IP: ${data.ip}<br>
-            City: ${data.city || 'N/A'}<br>
-            Region: ${data.region || 'N/A'}<br>
-            Country: ${data.country || 'N/A'}<br>
-            Location: ${data.loc || 'N/A'}<br>
-            Organization: ${data.org || 'N/A'}<br>
-            Postal: ${data.postal || 'N/A'}
+            Cidade: ${data.city || 'N/A'}<br>
+            Região: ${data.region || 'N/A'}<br>
+            Estado: ${data.country || 'N/A'}<br>
+            Localização: ${data.loc || 'N/A'}<br>
+            Provedor: ${data.org || 'N/A'}<br>
+            Cep: ${data.postal || 'N/A'}
         `;
     } catch (error) {
-        console.error('Erro ao obter as informações:', error);
-        userInfoElement.textContent = 'Unable to retrieve IP information'; 
+        console.error('Erro:', error);
+        userInfoElement.textContent = 'desativa essas merdas de proteção ai e vai te fuder'; 
     }
 }
 
