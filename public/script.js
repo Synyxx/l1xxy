@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const deltaY = e.clientY - spanY;
             const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
 
-            if (distance < 120) {
+            if (distance < 60) {
                 
                 let randomX = (Math.random() - 0.5) * 40;
                 let randomY = (Math.random() - 0.5) * 40;
