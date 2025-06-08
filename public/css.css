@@ -91,3 +91,7 @@ a:active{
     50% { opacity: 1; }
     100% { opacity: 0.6; }
 }
+
+a, button {
+  cursor: url(https://cur.cursors-4u.net/others/oth-4/oth378.cur), auto !important;
+}
