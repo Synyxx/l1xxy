@@ -1,0 +1,92 @@
+@font-face {
+ font-family: "got";
+ src: url("b.ttf") format("truetype");
+}
+
+body {
+ background: url("pc.jpg") no-repeat center center fixed;
+ background-size: cover;
+ background-color: black;
+ font-family: "got";
+ text-align: center;
+ overflow: hidden;
+ margin: 0;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+
+@media (max-width: 768px) {
+ body {
+  background: url("mobile.jpg") no-repeat center center fixed;
+  background-size: cover;
+ }
+}
+
+.img {
+ width: 150px;
+ margin-bottom: 15px;
+ width: 150px;
+}
+
+h1 {
+ font-size: 2rem;
+ position: relative;
+ display: inline-block;
+ letter-spacing: 2px;
+ color: #bababa;
+}
+
+.teste {
+ display: inline-block;
+ font-size: 1.5rem;
+ transition: transform 0.1s linear;
+}
+
+*{
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+} 
+input, 
+textarea, 
+button, 
+select, 
+a{ 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+} 
+
+
+a:focus, 
+a:visited, 
+a:active{
+  outline: none; 
+} 
+
+#click {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+#click h2 {
+    color: #ffffffe0;
+    font-family: "got";
+    letter-spacing: 3px;
+    font-size: 1.8rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
