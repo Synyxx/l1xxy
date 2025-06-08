@@ -16,6 +16,7 @@ body {
  flex-direction: column;
  justify-content: center;
  align-items: center;
+ cursor: url(https://cur.cursors-4u.net/others/oth-4/oth378.cur), auto !important;
 }
 
 @media (max-width: 768px) {
