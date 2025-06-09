@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const songs = [
         'Come Home',
         'Scarlet Fields - The Horrors',
+        'porno witch - xójira',
         'PROMETHAZINE - xn88ax',
         'Robbery 95'
     ];
