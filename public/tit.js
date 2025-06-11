@@ -8,7 +8,7 @@ function typeEffect() {
         document.title = t.substring(0, i);
         i++;
         speed = 150;
-    } else if (isDeleting && i >= 0) {
+    } else if (isDeleting && i > 1) {
         document.title = t.substring(0, i);
         i--;
         speed = 50;
@@ -17,7 +17,7 @@ function typeEffect() {
     if (i > t.length) {
         isDeleting = true;
         speed = 1000;
-    } else if (i < 1) {
+    } else if (i === 1) {
         isDeleting = false;
         speed = 500;
     }
