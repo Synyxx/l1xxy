@@ -25,4 +25,4 @@ function type() {
     setTimeout(type, speed);
 }
 
-typeEffect();
+type();
