@@ -17,7 +17,7 @@ function typeEffect() {
     if (i > t.length) {
         isDeleting = true;
         speed = 1000;
-    } else if (i < 0) {
+    } else if (i < 1) {
         isDeleting = false;
         speed = 500;
     }
