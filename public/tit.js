@@ -3,7 +3,7 @@ let i = 0;
 let isDeleting = false;
 let speed = 150;
 
-function typeEffect() {
+function type() {
     if (!isDeleting && i <= t.length) {
         document.title = t.substring(0, i);
         i++;
@@ -22,7 +22,7 @@ function typeEffect() {
         speed = 500;
     }
 
-    setTimeout(typeEffect, speed);
+    setTimeout(type, speed);
 }
 
 typeEffect();
